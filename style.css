@@ -1,0 +1,280 @@
+body {
+  font-size: 15pt;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&family=Raleway&display=swap");
+
+body {
+  font-family: Raleway;
+  user-select: none;
+}
+
+#game {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: red;
+}
+
+#menu {
+  position: absolute;
+  margin-top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: violet;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /*display: none;*/
+}
+
+#menu-heading {
+  position: relative;
+  margin-top: 0;
+  left: 0;
+  height: 50px;
+  width: 100vw;
+  background-color: #1177ff;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+  font-weight: 900;
+}
+
+.lvl {
+  position: relative;
+  margin-top: 10px;
+  left: 10px;
+  width: calc(100vw - 20px);
+  height: 60px;
+  color: white;
+  background-color: #8bc24a;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 50px;
+  border-radius: 20px;
+}
+
+.lvl span {
+  transform: rotate(-10deg);
+  font-size: 14px;
+  position: absolute;
+  background: #1177ff;
+  padding: 4px;
+  float: right;
+  margin-right: 40px;
+  line-height: 25px;
+  margin-top: 10px;
+  width: 80px;
+  border-radius: 30px;
+}
+
+#level {
+  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #1276af;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: none;
+}
+
+.lvl:hover {
+  background-color: green;
+}
+
+.test-tube {
+  position: absolute;
+  height: 130px;
+  width: 40px;
+  border: 2px solid #ddd;
+  border-radius: 2px 2px 20px 20px;
+  background-position: 0 10px;
+  overflow: hidden;
+  transition: 1s linear;
+  transform: rotate(0deg);
+}
+
+@keyframes glassAnim {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.colors {
+  position: absolute;
+  left: 0;
+  height: 30px;
+  width: 40px;
+}
+
+#won {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100vw;
+  text-align: center;
+  font-size: 60px;
+  font-weight: 900;
+}
+
+#white-bg {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 40px;
+  height: 10px;
+  background-color: white;
+  z-index: 1000;
+  transition: 1s;
+}
+
+#colorful-bg {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  z-index: 1000;
+  transition: 1s;
+}
+
+#restart {
+  left: 0;
+}
+
+#home {
+  left: calc(100vw - 150px);
+}
+
+.game-buttons {
+  position: fixed;
+  top: 0;
+  height: 40px;
+  width: 120px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 40px;
+  background-color: darkred;
+  color: #fff;
+}
+
+#lvl-heading {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  height: 50px;
+  width: 100vw;
+  background-color: #1177ff;
+  border-radius: 0 0 25px 25px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 50px;
+  text-align: center;
+  letter-spacing: 3px;
+}
+
+#moves {
+  position: fixed;
+  top: 2px;
+  width: 80px;
+  height: 30px;
+  left: 130px;
+  font-size: 18px;
+  background: yellow;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+#rules-btn {
+  position: fixed;
+  left: calc(100vw - 200px);
+  top: calc(100vh - 50px);
+  height: 50px;
+  width: 200px;
+  background-color: #8bc24a;
+  border-radius: 20px 20px 0 0;
+  text-align: center;
+  font-size: 25px;
+  line-height: 50px;
+  font-weight: 500;
+}
+
+#rules-page {
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: 0.5s linear;
+}
+
+#rules {
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  height: calc(100vh - 200px);
+  width: calc(100vw - 100px);
+  background-color: white;
+  border-radius: 10px;
+}
+
+#rules-heading {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+}
+
+#rules-text {
+  position: absolute;
+  top: 70px;
+  left: 5%;
+  width: 90%;
+  font-size: 20px;
+  height: calc(100vh - 200px - 150px);
+  overflow-x: hidden;
+}
+
+#rules a {
+  background: #8bc24a;
+  padding: 2px;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+}
+
+#back {
+  position: absolute;
+  top: calc(100% - 120px + 65px + 10px);
+  height: 40px;
+  width: 100px;
+  left: calc(100% - 100px);
+  background-color: rgb(100, 255, 100);
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 10px 0 0 10px;
+}
+
+#alert-button:hover {
+  background-color: rgb(150, 255, 150);
+}

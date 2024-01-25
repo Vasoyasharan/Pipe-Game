@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Pipe Game</title>
+</head>
+
+<body>
+  <div id="game">
+    <div id="menu">
+      <div id="menu-heading">LOGO</div>
+      <div class="lvl" id="easy" onclick="OpenLevel(0);">
+        EASY<span> level 1</span>
+      </div>
+      <div class="lvl" id="medium" onclick="OpenLevel(1);">
+        MEDIUM<span> level 2</span>
+      </div>
+      <div class="lvl" id="hard" onclick="OpenLevel(2);">
+        HARD<span> level 3</span>
+      </div>
+      <div class="lvl" id="very-hard" onclick="OpenLevel(3)">
+        VERY HARD<span> level 4</span>
+      </div>
+      <div class="lvl" id="impossible" onclick="OpenLevel(7);">
+        IMPOSSIBLE<span> level 5</span>
+      </div>
+      <br /><br /><br />
+      <div id="rules-btn" onclick="ShowRules();">RULES</div>
+    </div>
+    <div id="level"></div>
+    <div id="rules-page">
+      <div id="rules">
+        <div id="rules-heading">rules</div>
+        <div id="rules-text">
+          There will be some beakers or test tubes to be exact, your task
+          is to put liquids of the same color together! You can transfer
+          different colored water from one glass to another only if the
+          other glass is empty or if the top layer of water is the same
+          color as the glass from which the water will be taken. The glass
+          you selected will be highlighted to prevent confusion. The
+          restart button will take you back to the beginning of the level,
+          and also every time you unlock the same level, the water will be
+          mixed. Check out the real game
+          <br />
+          Water sort puzzle
+        </div>
+
+        <a href="https://instagram.com/sharan_vasoya_07">instagram</a>
+
+        <div id="back" onclick="HideRules();">back</div>
+      </div>
+    </div>
+  </div>
+
+<!-- Custom Styles -->
+<link rel="stylesheet" href="style.css" />
+
+  <!-- Scripting  -->
+  <script src="main.js"></script>
+</body>
+
+</html>
