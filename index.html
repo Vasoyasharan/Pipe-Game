@@ -1,66 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <title>Pipe Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>PipeSort — Water Sort Puzzle</title>
+  <meta name="description" content="An addictive water sort puzzle game. Sort the colored liquids into matching tubes!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <div id="game">
-    <div id="menu">
-      <div id="menu-heading">LOGO</div>
-      <div class="lvl" id="easy" onclick="OpenLevel(0);">
-        EASY<span> level 1</span>
+
+<!-- Particle Canvas Background -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- ========== MAIN WRAPPER ========== -->
+<div id="game">
+
+  <!-- ========== MENU SCREEN ========== -->
+  <div id="menu">
+    <div class="menu-inner">
+
+      <!-- Logo / Title -->
+      <div class="logo-area">
+        <div class="logo-icon">
+          <div class="tube-icon">
+            <span style="background:#00f7ff"></span>
+            <span style="background:#a855f7"></span>
+            <span style="background:#f97316"></span>
+          </div>
+          <div class="tube-icon">
+            <span style="background:#22c55e"></span>
+            <span style="background:#f97316"></span>
+            <span style="background:#00f7ff"></span>
+          </div>
+          <div class="tube-icon">
+            <span style="background:#a855f7"></span>
+            <span style="background:#22c55e"></span>
+            <span style="background:#f43f5e"></span>
+          </div>
+        </div>
+        <h1 class="logo-title">PIPE<span>SORT</span></h1>
+        <p class="logo-sub">Water Sort Puzzle</p>
       </div>
-      <div class="lvl" id="medium" onclick="OpenLevel(1);">
-        MEDIUM<span> level 2</span>
+
+      <!-- Best Scores Strip -->
+      <div class="stats-strip" id="stats-strip">
+        <div class="stat-item"><span class="stat-label">Best Level</span><span class="stat-val" id="stat-best-level">—</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-label">Games Won</span><span class="stat-val" id="stat-wins">0</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-label">Total Moves</span><span class="stat-val" id="stat-moves">0</span></div>
       </div>
-      <div class="lvl" id="hard" onclick="OpenLevel(2);">
-        HARD<span> level 3</span>
-      </div>
-      <div class="lvl" id="very-hard" onclick="OpenLevel(3)">
-        VERY HARD<span> level 4</span>
-      </div>
-      <div class="lvl" id="impossible" onclick="OpenLevel(7);">
-        IMPOSSIBLE<span> level 5</span>
-      </div>
-      <br /><br /><br />
-      <div id="rules-btn" onclick="ShowRules();">RULES</div>
-    </div>
-    <div id="level"></div>
-    <div id="rules-page">
-      <div id="rules">
-        <div id="rules-heading">rules</div>
-        <div id="rules-text">
-          There will be some beakers or test tubes to be exact, your task
-          is to put liquids of the same color together! You can transfer
-          different colored water from one glass to another only if the
-          other glass is empty or if the top layer of water is the same
-          color as the glass from which the water will be taken. The glass
-          you selected will be highlighted to prevent confusion. The
-          restart button will take you back to the beginning of the level,
-          and also every time you unlock the same level, the water will be
-          mixed. Check out the real game
-          <br />
-          Water sort puzzle
+
+      <!-- Level Cards -->
+      <div class="levels-label">SELECT DIFFICULTY</div>
+      <div class="levels-grid" id="levels-grid">
+
+        <div class="lvl-card" id="lvl-easy" onclick="OpenLevel('easy')" data-level="easy">
+          <div class="lvl-glow"></div>
+          <div class="lvl-badge">1</div>
+          <div class="lvl-tubes">
+            <div class="mini-tube"><div style="height:60%;background:#22c55e;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:80%;background:#00f7ff;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:40%;background:#f97316;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+          </div>
+          <div class="lvl-name">EASY</div>
+          <div class="lvl-desc">3 colors · 5 tubes</div>
+          <div class="lvl-best" id="best-easy">Best: —</div>
         </div>
 
-        <a href="https://instagram.com/sharan_vasoya_07">Contact Me</a>
+        <div class="lvl-card" id="lvl-medium" onclick="OpenLevel('medium')" data-level="medium">
+          <div class="lvl-glow" style="--glow:#a855f7"></div>
+          <div class="lvl-badge" style="background:linear-gradient(135deg,#a855f7,#7c3aed)">2</div>
+          <div class="lvl-tubes">
+            <div class="mini-tube"><div style="height:70%;background:#a855f7;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:50%;background:#f43f5e;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:90%;background:#facc15;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+          </div>
+          <div class="lvl-name" style="color:#a855f7">MEDIUM</div>
+          <div class="lvl-desc">4 colors · 6 tubes</div>
+          <div class="lvl-best" id="best-medium">Best: —</div>
+        </div>
 
-        <div id="back" onclick="HideRules();">back</div>
+        <div class="lvl-card" id="lvl-hard" onclick="OpenLevel('hard')" data-level="hard">
+          <div class="lvl-glow" style="--glow:#f97316"></div>
+          <div class="lvl-badge" style="background:linear-gradient(135deg,#f97316,#dc2626)">3</div>
+          <div class="lvl-tubes">
+            <div class="mini-tube"><div style="height:85%;background:#f97316;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:55%;background:#00f7ff;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:75%;background:#a855f7;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+          </div>
+          <div class="lvl-name" style="color:#f97316">HARD</div>
+          <div class="lvl-desc">5 colors · 7 tubes</div>
+          <div class="lvl-best" id="best-hard">Best: —</div>
+        </div>
+
+        <div class="lvl-card" id="lvl-vhard" onclick="OpenLevel('vhard')" data-level="vhard">
+          <div class="lvl-glow" style="--glow:#f43f5e"></div>
+          <div class="lvl-badge" style="background:linear-gradient(135deg,#f43f5e,#9f1239)">4</div>
+          <div class="lvl-tubes">
+            <div class="mini-tube"><div style="height:90%;background:#f43f5e;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:60%;background:#22c55e;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:80%;background:#facc15;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+          </div>
+          <div class="lvl-name" style="color:#f43f5e">VERY HARD</div>
+          <div class="lvl-desc">6 colors · 8 tubes</div>
+          <div class="lvl-best" id="best-vhard">Best: —</div>
+        </div>
+
+        <div class="lvl-card" id="lvl-expert" onclick="OpenLevel('expert')" data-level="expert">
+          <div class="lvl-glow" style="--glow:#facc15"></div>
+          <div class="lvl-badge" style="background:linear-gradient(135deg,#facc15,#d97706)">5</div>
+          <div class="lvl-tubes">
+            <div class="mini-tube"><div style="height:100%;background:linear-gradient(180deg,#f43f5e,#facc15);border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:70%;background:linear-gradient(180deg,#a855f7,#00f7ff);border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube"><div style="height:45%;background:#22c55e;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+          </div>
+          <div class="lvl-name" style="color:#facc15">EXPERT</div>
+          <div class="lvl-desc">8 colors · 10 tubes</div>
+          <div class="lvl-best" id="best-expert">Best: —</div>
+        </div>
+
+        <div class="lvl-card" id="lvl-legend" onclick="OpenLevel('legend')" data-level="legend">
+          <div class="lvl-glow" style="--glow:#ff00ff"></div>
+          <div class="lvl-badge" style="background:linear-gradient(135deg,#ff00ff,#6600cc)">6</div>
+          <div class="lvl-tubes">
+            <div class="mini-tube" style="border-color:rgba(255,0,255,0.5)"><div style="height:100%;background:linear-gradient(180deg,#ff00ff,#6600cc,#00f7ff);border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube" style="border-color:rgba(255,0,255,0.5)"><div style="height:75%;background:linear-gradient(180deg,#facc15,#f43f5e);border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+            <div class="mini-tube" style="border-color:rgba(255,0,255,0.5)"><div style="height:55%;background:#f97316;border-radius:0 0 4px 4px;margin-top:auto;"></div></div>
+          </div>
+          <div class="lvl-name" style="color:#ff00ff;text-shadow:0 0 10px #ff00ff">LEGENDARY</div>
+          <div class="lvl-desc">10 colors · 12 tubes</div>
+          <div class="lvl-best" id="best-legend">Best: —</div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Buttons -->
+      <div class="menu-btns">
+        <button class="menu-btn-outline" onclick="ShowRules()">📖 How to Play</button>
+        <button class="menu-btn-outline" onclick="ResetStats()">🗑 Reset Stats</button>
+      </div>
+
+      <div class="footer-credit">Made by <a href="https://instagram.com/sharan_vasoya_07" target="_blank">@sharan_vasoya_07</a></div>
+    </div>
+  </div>
+
+  <!-- ========== GAME / LEVEL SCREEN ========== -->
+  <div id="level" style="display:none;">
+
+    <!-- Game HUD -->
+    <div id="hud">
+      <button class="hud-btn" id="btn-home" onclick="ShowMenu()" title="Menu">🏠</button>
+      <div class="hud-center">
+        <div class="hud-level-tag" id="hud-level-tag">EASY</div>
+        <div class="hud-stats">
+          <div class="hud-stat"><span class="hud-stat-icon">👣</span><span id="hud-moves">0</span></div>
+          <div class="hud-stat"><span class="hud-stat-icon">⏱</span><span id="hud-timer">0:00</span></div>
+        </div>
+      </div>
+      <div class="hud-actions">
+        <button class="hud-btn" id="btn-hint" onclick="UseHint()" title="Hint">💡<span class="hint-count" id="hint-count">3</span></button>
+        <button class="hud-btn" id="btn-undo" onclick="UndoMove()" title="Undo">↩</button>
+        <button class="hud-btn" id="btn-restart" onclick="RestartLevel()" title="Restart">🔄</button>
+      </div>
+    </div>
+
+    <!-- Tubes Area -->
+    <div id="tubes-area"></div>
+
+    <!-- Progress Bar -->
+    <div id="progress-wrap">
+      <div id="progress-bar"></div>
+      <div id="progress-label">0%</div>
+    </div>
+
+  </div>
+
+  <!-- ========== WIN SCREEN ========== -->
+  <div id="win-screen" style="display:none;">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="win-card">
+      <div class="win-trophy">🏆</div>
+      <h2 class="win-title">YOU WIN!</h2>
+      <div class="win-stats-grid">
+        <div class="win-stat"><div class="win-stat-val" id="win-moves">–</div><div class="win-stat-label">Moves</div></div>
+        <div class="win-stat"><div class="win-stat-val" id="win-time">–</div><div class="win-stat-label">Time</div></div>
+        <div class="win-stat"><div class="win-stat-val" id="win-best">–</div><div class="win-stat-label">Best Moves</div></div>
+      </div>
+      <div class="win-rating" id="win-rating"></div>
+      <div class="win-btns">
+        <button class="win-btn-primary" onclick="NextLevel()">Next Level ▶</button>
+        <button class="win-btn-secondary" onclick="RestartLevel()">Play Again 🔄</button>
+        <button class="win-btn-secondary" onclick="ShowMenu()">Menu 🏠</button>
       </div>
     </div>
   </div>
 
-<!-- Custom Styles -->
-<link rel="stylesheet" href="style.css" />
+  <!-- ========== RULES / HOW TO PLAY ========== -->
+  <div id="rules-page" style="display:none;">
+    <div id="rules-modal">
+      <div class="rules-header">
+        <h2>How to Play</h2>
+        <button class="rules-close" onclick="HideRules()">✕</button>
+      </div>
+      <div class="rules-body">
+        <div class="rule-item">
+          <div class="rule-icon">🧪</div>
+          <div class="rule-text"><strong>Goal:</strong> Sort all liquids so each tube contains only one color.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">👆</div>
+          <div class="rule-text"><strong>How:</strong> Tap a tube to select it, then tap another to pour. You can only pour onto a matching color or an empty tube.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">🔢</div>
+          <div class="rule-text"><strong>Rules:</strong> A tube can only hold 4 layers. You can't pour into a full tube.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">💡</div>
+          <div class="rule-text"><strong>Hints:</strong> Each level gives you 3 hints showing a valid move.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">↩</div>
+          <div class="rule-text"><strong>Undo:</strong> Undo your last move any time.</div>
+        </div>
+        <div class="rule-item">
+          <div class="rule-icon">⭐</div>
+          <div class="rule-text"><strong>Rating:</strong> Finish in fewer moves for a higher star rating!</div>
+        </div>
+      </div>
+      <button class="rules-play-btn" onclick="HideRules()">Got it! Let's Play 🎮</button>
+    </div>
+  </div>
 
-  <!-- Scripting  -->
-  <script src="main.js"></script>
+  <!-- ========== TOAST NOTIFICATION ========== -->
+  <div id="toast"></div>
+
+</div>
+
+<script src="main.js"></script>
 </body>
-
 </html>
